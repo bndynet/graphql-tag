@@ -31,7 +31,8 @@ function expandImports(source, doc) {
     if (result) {
       const importFile = result[1];
       const parseDocument = `require(${importFile})`;
-      const appendDef = `doc.definitions = doc.definitions.concat(unique(${parseDocument}.definitions));`;
+      const appendDef = `doc.definitions = doc.definitions.concat(unique(${parseDocument}.definitions));doc.loc.source.body += '\\n' + ${parseDocument}.loc.source.body;`;
+      
       outputCode += appendDef + os.EOL;
     }
     return (line.length !== 0 && line[0] !== '#');
